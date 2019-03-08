@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Parts List</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="fetchData">clickme</button>
+      <select>
+        <option v-for="table in tables" :value="table.id">{{ table.name}}</option>
+      </select>
+      {{ message }}
+    </div>
+    <script>
+
+      var app = new Vue({
+        el: '#app',
+        data: {
+          tables: [],
+          message: 'Hello Vue!'
+        },
+        methods: {
+          fetchData: function () {
+            axios
+              .get('api/getTables.php')
+              .then(response => (this.tables = response.data));
+          }
+        }
+      });
+
+    </script>
+  </body>
+</html>
